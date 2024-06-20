@@ -8,12 +8,13 @@ Library    .venv/Lib/site-packages/robot/libraries/XML.py
 ${URL}    https://letcode.in/buttons
 ${BROWSER}        Chrome
 
+${HOLD_BUTTON}    //button[contains(., 'Button')]
 ${hold_button}    css://#color
 
 *** Keywords ***
 Prepare for test
     Open Browser    ${URL}    ${BROWSER}
-    Set Selenium Speed    3 seconds
+    Set Selenium Speed    1 seconds
 
 
 *** Test Cases ***
@@ -30,15 +31,9 @@ Buttons
     Log    X coordinate: ${x_coord}
 
 
-    # ${color}=    Get Element Attribute    id:color    style.background-color
-    # Log    Button color:${color}
+    ${color}=    Get Element Attribute    id:color    style.background-color
+    Log    Button color:${color}
 
-    ${tall&fat}=    Get Element Size    id:property
-    Log    Button sizes: ${tall&fat}
-
-    Element Should Be Disabled    id:isDisabled
-
-    # Click Button    ${hold_button}
-    # Click Element   ${hold_button}    
-    # Sleep    3
-    
+    Mouse Down        ${HOLD_BUTTON}
+    Wait Until Page Contains    Button has been long pressed    timeout=5s
+    Mouse Up    ${HOLD_BUTTON}
