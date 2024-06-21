@@ -31,8 +31,9 @@ Buttons
     Log    X coordinate: ${x_coord}
 
 
-    ${color}=    Get Element Attribute    id:color    style.background-color
-    Log    Button color:${color}
+    ${elem}    Get Webelement    id:color
+    ${bg color}    Call Method    ${elem}    value_of_css_property    background-color
+    Log    Button color:${bg color}
 
     Mouse Down        ${HOLD_BUTTON}
     Wait Until Page Contains    Button has been long pressed    timeout=5s
